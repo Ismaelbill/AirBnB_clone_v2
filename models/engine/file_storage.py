@@ -15,7 +15,8 @@ class FileStorage:
         else:
             fl_dict = {}
             for key, val in self.__objects.items():
-                fl_dict[key] = val
+                if type(val) is cls:
+                    fl_dict[key] = val
             return fl_dict
 
     def new(self, obj):
@@ -56,8 +57,8 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """ delete obj from __objects if it’s inside """
-        key = (obj.__class__.__name__ + '.' + obj.id)
+        """delete obj from __objects if it’s inside"""
         if obj is not None:
+            key = (obj.__class__.__name__ + '.' + obj.id) 
             if key in self.__objects.keys():
                 del self.__objects[key]
